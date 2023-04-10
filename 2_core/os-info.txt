@@ -1,0 +1,4 @@
+x64
+win32
+DESKTOP-S73US18
+Windows 10 Pro
