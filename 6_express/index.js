@@ -1,14 +1,15 @@
 const express = require('express');
 const CPF = require('cpf');
 const app = express();
+const usuarios = require('../1_modules/modulo_usuarios');
 
 // Home page
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   res.send(`<h1>Home</h1>`);
 });
 
 // Config da porta
-app.listen(3000, () =>{
+app.listen(3000, () => {
   console.log(`Server iniciado http://localhost:3000/`)
 });
 
@@ -23,9 +24,9 @@ app.get('/imc/:peso/:altura', (req, res) => {
 
 // Exercício 2
 app.get('/funcionario/:cpf', (req, res) => {
-  const {cpf} = req.params; // desestrutura para capturar o valor de cpf
+  const { cpf } = req.params; // desestrutura para capturar o valor de cpf
 
-  if(CPF.isValid(cpf)) { // verifica se o CPF é válido usando a biblioteca cpf
+  if (CPF.isValid(cpf)) { // verifica se o CPF é válido usando a biblioteca cpf
     res.status(200).send(`CPF: ${cpf} válido.`) // se válido envia status 200 e uma mensagem ao front
   } else {
     res.status(400).send(`CPF: ${cpf} inválido.`) // se inválido envia status 400 e uma mensagem ao front
@@ -34,7 +35,7 @@ app.get('/funcionario/:cpf', (req, res) => {
 
 // Exercício 3
 app.get('/cpfs/:numero', (req, res) => {
-  const {numero} = req.params; // desestrutura para capturar a quantidade informada na requisição
+  const { numero } = req.params; // desestrutura para capturar a quantidade informada na requisição
   const array = []; // gera um array para 
 
   for (let i = 0; i < numero; i++) { // array para gerar a quantidade informada de cpfs
@@ -49,9 +50,9 @@ app.get('/cpfs/:numero', (req, res) => {
 
 // Exercício 4
 app.get('/search', (req, res) => {
-  const {nome} = req.query; // desestrutura para capturar o valor de nome
+  const { nome } = req.query; // desestrutura para capturar o valor de nome
 
-  if(nome) {
+  if (nome) {
     res.status(200).send(`Bem-vindo: ${nome}`) // se válido envia status 200 e uma mensagem ao front
   } else {
     res.status(400).send(`Nome inválido ou inexistente`) // se inválido envia status 400 e uma mensagem ao front
@@ -64,9 +65,9 @@ app.get('/soma', (req, res) => {
   const a = Number(req.query.a);
   const b = Number(req.query.b);
 
-  if(a && b) {
-    if(a !== NaN && b !== NaN){
-      res.status(200).send(`O resultado da soma é ${a+b}`) // se válido envia status 200 e uma mensagem ao front
+  if (a && b) {
+    if (a !== NaN && b !== NaN) {
+      res.status(200).send(`O resultado da soma é ${a + b}`) // se válido envia status 200 e uma mensagem ao front
     } else {
       res.status(400).send(`A e B devem ser números`) // se inválido envia status 400 e uma mensagem ao front
     }
@@ -77,19 +78,36 @@ app.get('/soma', (req, res) => {
 })
 
 // Exercício 6
-app.get('/lang', (req, res)=>{
-  const {idioma} = req.query;
-  
-  if(idioma) {
-    if(idioma === 'pt-br') {
+app.get('/lang', (req, res) => {
+  const { idioma } = req.query;
+
+  if (idioma) {
+    if (idioma === 'pt-br') {
       res.status(200).send(`Bem-vindo`)
     } else if (idioma === 'en') {
       res.status(200).send(`Welcome`)
-    } else{
+    } else {
       res.status(400).send(`Idioma inválido`)
     }
 
   } else {
     res.status(400).send(`Idioma deve ser informado`)
+  }
+})
+
+// Exercício 7
+app.get('/usuarios', (req, res) => {
+  res.json(usuarios)
+})
+
+// Exercício 8
+app.get('/usuarios/:index', (req, res) => {
+  const index = Number(req.params.index);
+  const usuarioEncontrado = usuarios[index];
+
+  if(usuarioEncontrado){
+    res.status(200).json(usuarioEncontrado)
+  } else {
+    res.status(404).json({message: "user not found"})
   }
 })
