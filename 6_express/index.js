@@ -111,3 +111,23 @@ app.get('/usuarios/:index', (req, res) => {
     res.status(404).json({message: "user not found"})
   }
 })
+
+// Exercício 9
+app.get('/usuario/:nome', (req, res) => {
+  const {nome} = req.params;
+  console.log(req.params)
+
+  if(nome){
+    const usuarioEncontrado = usuarios.find(
+      usuario => usuario.nome.toLowerCase() === nome.toLowerCase());
+      
+    if(usuarioEncontrado){
+      res.status(200).json(usuarioEncontrado)
+    } else {
+      res.status(404).json({message: "usuário não encontrado"})
+    }
+  } else {
+    res.status(404).json({message: "usuário não informado"})
+  }
+
+})
