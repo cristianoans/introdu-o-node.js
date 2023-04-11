@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "cpf": "^2.0.1",
     "express": "^4.18.2"
   },
   "name": "6_express",
@@ -7,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
