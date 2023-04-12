@@ -113,7 +113,7 @@ app.get('/usuarios/:index', (req, res) => {
 })
 
 // Exercício 9
-app.get('/usuario/:nome', (req, res) => {
+app.get('/usuarios/:nome', (req, res) => {
   const {nome} = req.params;
   console.log(req.params)
 
